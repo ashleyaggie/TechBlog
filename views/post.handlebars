@@ -1,0 +1,16 @@
+<div class="text-center">
+  <h2>{{title}}</h2>
+  <p>{{contents}}</p>
+  <p>Created by {{user.name}} on {{format_date createdAt}}, last updated {{format_date updatedAt}}</p>
+</div>
+
+{{#each comments as |comment|}}
+{{> comments}}
+{{/each}}
+
+<div>
+  <p>Comment</p>
+  <textarea type="text" id="commentText" row="4" cols="50"></textarea>
+  <br>
+  <button class="btn btn-primary">Submit</button>
+</div>

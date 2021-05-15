@@ -13,15 +13,15 @@ const seedDatabase = async () => {
     returning: true,
   });
 
+  console.log('\n----- USERS SEEDED -----\n');
+
   const posts = await Post.bulkCreate(postData);
 
-  for (const comment of commentData) {
-    await Comment.create({
-      ...comment,
-      user_id: users[Math.floor(Math.random() * users.length)].id,
-      post_id: posts[Math.floor(Math.random() * posts.length)].id
-    });
-  }
+  console.log('\n----- POSTS SEEDED -----\n');
+
+  const comments = await Comment.bulkCreate(commentData);
+
+  console.log('\n----- COMMENTS SEEDED -----\n');
 
   process.exit(0);
 };

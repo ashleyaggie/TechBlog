@@ -1,11 +1,17 @@
 const router = require('express').Router();
-const { User, Post, Comment } = require('../models');
+const { User, Post, Comment, PostComments } = require('../models');
 const withAuth = require('../utils/auth');
 
 router.get('/', async (req, res) => {
   try {
     
-    const postData = await Post.findAll();
+    const postData = await Post.findAll({
+      include: [
+        {
+          model: User
+        }
+      ]
+    });
 
     const posts = postData.map((post) => post.get({ plain: true }));
 
@@ -13,8 +19,8 @@ router.get('/', async (req, res) => {
       posts,
       logged_in: req.session.logged_in
     });
-    res.status(200).json(posts);
   } catch (err) {
+    console.error(err);
     res.status(500).json(err);
   }
 });
@@ -24,18 +30,23 @@ router.get('/post/:id', async (req, res) => {
     const postData = await Post.findByPk(req.params.id, {
       include: [
         {
-          model: User,
-          attributes: ['name'],
+          model: User
         },
+        {
+          model: Comment,
+          include: {
+            model: User
+          }
+        }
       ],
     });
 
     const post = postData.get({ plain: true });
 
-    res.render('post', {
-      ...post,
-      logged_in: req.session.logged_in
-    });
+    // res.render('post', {
+    //   ...post,
+    //   logged_in: req.session.logged_in
+    // });
     res.status(200).json(post);
   } catch (err) {
     res.status(500).json(err);
