@@ -1,7 +1,7 @@
 <div class="text-center">
   <h2>{{title}}</h2>
   <p>{{contents}}</p>
-  <p>Created by {{user.name}} on {{format_date createdAt}}, last updated {{format_date updatedAt}}</p>
+  <p>Created by {{user.name}} on {{format_date createdAt}}, <span class="updated">last updated {{format_date updatedAt}}</span></p>
 </div>
 
 {{#each comments as |comment|}}
@@ -9,8 +9,13 @@
 {{/each}}
 
 <div>
-  <p>Comment</p>
-  <textarea type="text" id="commentText" row="4" cols="50"></textarea>
-  <br>
-  <button class="btn btn-primary">Submit</button>
+  <form class="form new-comment-form">
+    <p>Comment</p>
+    <textarea type="text" id="comment-text" row="4" cols="50"></textarea>
+    <br>
+    <button class="btn btn-primary">Submit</button>
+  </form>
+  
 </div>
+
+<script src="../js/addComment.js"></script>

@@ -1,5 +1,42 @@
-header, .project:not(:last-child) {
+header, .post:not(:last-child) {
   border-bottom: 1px solid #ccc;
+}
+
+.user-post {
+  background-color: white;
+}
+
+body {
+  background-color: #e0f2f1;
+}
+
+nav {
+  background-color: #00695c;
+}
+
+nav ul {
+  padding-right: 30px;
+}
+
+.btn a {
+  color: white;
+}
+
+a {
+  color: #006064;
+}
+
+.post {
+  background-color: #b2dfdb;
+  padding: 5px 10px 10px 10px;
+}
+
+h3 {
+  margin-bottom: 20px;
+}
+
+.updated {
+  font-style: italic;
 }
 
 .no-button {
