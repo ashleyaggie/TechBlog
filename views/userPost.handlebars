@@ -1,0 +1,29 @@
+<div class="text-center">
+  <h2>{{title}}</h2>
+  <p>{{contents}}</p>
+  <p>Created by {{user.name}} on {{format_date createdAt}}, <span class="updated">last updated {{format_date updatedAt}}</span></p>
+  <div class="row">
+    <div class="col m2">
+      <button class="btn btn-sm btn-danger" data-id="{{post.id}}">EDIT</button>
+    </div>
+    <div class="col m2">
+      <button class="btn btn-sm btn-danger" data-id="{{post.id}}">DELETE</button>
+    </div>
+  </div>
+</div>
+
+{{#each comments as |comment|}}
+{{> comment}}
+{{/each}}
+
+<div>
+  <form class="form new-comment-form">
+    <p>Comment</p>
+    <textarea type="text" id="comment-text" row="4" cols="50"></textarea>
+    <br>
+    <button class="btn btn-primary">Submit</button>
+  </form>
+  
+</div>
+
+<script src="../js/addComment.js"></script>
