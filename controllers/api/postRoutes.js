@@ -11,25 +11,33 @@ router.post('/', withAuth, async (req, res) => {
 
     res.status(200).json(newPost);
   } catch (err) {
+    console.error(err);
     res.status(400).json(err);
   }
 });
 
-router.put('/post/:id', withAuth, async (req, res) => {
-  Post.update(req.body, {
-    where: {
-      id: req.params.id,
-      user_id: req.session.user_id,
-    },
-  })
-  .then((updatedPost) => res.json(updatedPost))
-  .catch((err) => {
+router.put('/:id', withAuth, async (req, res) => {
+  try {
+    const updatedPost = await Post.update(req.body, {
+      where: {
+        id: req.params.id,
+        user_id: req.session.user_id,
+      },
+    });
+
+    if (!updatedPost) {
+      res.status(404).json({ message: 'No post found!' });
+      return;
+    }
+
+    res.status(200).json(updatedPost);
+  } catch (err) {
     console.error(err);
     res.status(400).json(err);
-  })
+  }
 });
 
-router.delete('/post/:id', withAuth, async (req, res) => {
+router.delete('/:id', withAuth, async (req, res) => {
   try {
     const postData = await Post.destroy({
       where: {
@@ -45,6 +53,7 @@ router.delete('/post/:id', withAuth, async (req, res) => {
 
     res.status(200).json(postData);
   } catch (err) {
+    console.error(err);
     res.status(500).json(err);
   }
 });
