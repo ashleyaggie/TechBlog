@@ -3,10 +3,14 @@ const editFormHandler = async (event) => {
   
     const title = document.querySelector('#title').value.trim();
     const contents = document.querySelector('#contents').value.trim();
+
+    const id = window.location.toString().split('/')[
+      window.location.toString().split('/').length - 1
+    ];
   
     if (title && contents) {
-      const response = await fetch(`/api/posts`, {
-        method: 'POST',
+      const response = await fetch(`/api/posts/${id}`, {
+        method: 'PUT',
         body: JSON.stringify({ title, contents }),
         headers: {
           'Content-Type': 'application/json',
@@ -16,11 +20,11 @@ const editFormHandler = async (event) => {
       if (response.ok) {
         document.location.replace('/dashboard');
       } else {
-        alert('Failed to create project');
+        alert('Failed to edit post');
       }
     }
 };
   
 document
-.querySelector('#edit-btn')
+.querySelector('#edit-post')
 .addEventListener('submit', editFormHandler);
