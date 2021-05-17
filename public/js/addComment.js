@@ -3,8 +3,8 @@ const newFormHandler = async (event) => {
 
   const contents = document.querySelector('#comment-text').value.trim();
 
-  const post_id = window.location.toString().split('/')[
-    window.location.toString().split('/').length - 1
+  const post_id = location.toString().split('/')[
+    location.toString().split('/').length - 1
   ];
 
   if (contents) {
